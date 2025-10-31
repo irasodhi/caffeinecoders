@@ -185,7 +185,7 @@
             text-transform: uppercase;
         }
 
-        .cta-button {
+        /* .cta-button {
             padding: 20px 60px;
             background: transparent;
             color: #fff;
@@ -199,7 +199,7 @@
             position: relative;
             overflow: hidden;
             text-decoration: none; /* Added for <a> tags */
-        }
+        /* }
 
         .cta-button::before {
             content: '';
@@ -221,7 +221,66 @@
             color: #fff;
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(220, 0, 0, 0.4);
-        }
+        } */ 
+         /* Make the button an inline-block stacking context and keep text above the overlay */
+.cta-button {
+    display: inline-block;
+    padding: 20px 60px;
+    background: transparent;
+    color: #fff;
+    border: 2px solid #dc0000;
+    font-size: 0.95rem;
+    cursor: pointer;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: transform 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+    font-weight: 600;
+    position: relative;     /* create stacking context for pseudo */
+    overflow: hidden;
+    text-decoration: none;  /* for anchor tags */
+    z-index: 1;             /* ensure element sits above surrounding content */
+}
+
+/* Use the pseudo-element as the animated red fill.
+   Use transform for GPU-friendly animation and inset:0 to cover exactly. */
+.cta-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;                       /* top:0; right:0; bottom:0; left:0; */
+    left: 0;                        /* we will translate it -100% to hide */
+    transform: translateX(-100%);   /* hidden off-screen to the left */
+    background: #dc0000;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;                     /* sits under the text */
+}
+
+/* Text wrapper sits above the ::before overlay */
+.cta-button > span {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    transition: color 0.25s ease;
+}
+
+/* Hover state: slide overlay in and lift button slightly */
+.cta-button:hover::before,
+.cta-button:focus::before {
+    transform: translateX(0);       /* slide overlay into place */
+}
+
+.cta-button:hover,
+.cta-button:focus {
+    color: #fff;                    /* keep text white on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(220, 0, 0, 0.4);
+    outline: none;
+}
+
+/* Optional: keyboard accessibility focus style */
+.cta-button:focus {
+    box-shadow: 0 10px 30px rgba(220, 0, 0, 0.35), 0 0 0 3px rgba(220, 0, 0, 0.08);
+}
+
 
         /* About Section */
         .about {
@@ -788,7 +847,7 @@
             <div class="gallery-slider">
                 <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800" alt="F1 Car" class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800" alt="Racing Technology" class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1595676242064-a82c0030f9cf?w=800" alt="F1 Track" class="gallery-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5h3f2a8jjydEcBpgWR38owqD83AcbRSERHw&s" alt="F1 Track" class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800" alt="Race Car Detail" class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1600712242805-5f78671b24da?w=800" alt="F1 Cockpit" class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1551830820-330a71b99659?w=800" alt="Racing" class="gallery-item">
