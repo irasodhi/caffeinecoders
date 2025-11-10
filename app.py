@@ -993,53 +993,160 @@ def get_stats():
 def focus_detector():
     return render_template('home1.html')
 
-# ---------- F1 ANALYZER (keeping your existing code) ----------
+
+# F1 Cars Database (2010-2024)
 F1_CARS = {
-    'Red Bull RB19': {'team': 'Red Bull Racing', 'year': 2023, 'downforce': 95, 'topSpeed': 350,
-                      'acceleration': 94, 'cornering': 98, 'reliability': 96, 'wetPerformance': 92,
-                      'straightSpeed': 88, 'aero': 98, 'powerUnit': 'Honda RBPT', 'championships': 1, 'image': '🏎'},
-    'Mercedes W11': {'team': 'Mercedes AMG', 'year': 2020, 'downforce': 96, 'topSpeed': 348,
-                     'acceleration': 95, 'cornering': 97, 'reliability': 98, 'wetPerformance': 96,
-                     'straightSpeed': 89, 'aero': 97, 'powerUnit': 'Mercedes', 'championships': 1, 'image': '🏎'},
-    'Ferrari F2004': {'team': 'Scuderia Ferrari', 'year': 2004, 'downforce': 88, 'topSpeed': 365,
-                      'acceleration': 90, 'cornering': 91, 'reliability': 97, 'wetPerformance': 87,
-                      'straightSpeed': 98, 'aero': 89, 'powerUnit': 'Ferrari', 'championships': 1, 'image': '🏎'}
+    'Red Bull RB19': {
+        'team': 'Red Bull Racing', 'year': 2023, 'downforce': 95, 'topSpeed': 350,
+        'acceleration': 94, 'cornering': 98, 'reliability': 96, 'wetPerformance': 92,
+        'straightSpeed': 88, 'aero': 98, 'powerUnit': 'Honda RBPT', 'championships': 1, 'image': '🏎'
+    },
+    'Red Bull RB18': {
+        'team': 'Red Bull Racing', 'year': 2022, 'downforce': 93, 'topSpeed': 345,
+        'acceleration': 92, 'cornering': 96, 'reliability': 94, 'wetPerformance': 90,
+        'straightSpeed': 86, 'aero': 96, 'powerUnit': 'Honda RBPT', 'championships': 1, 'image': '🏎'
+    },
+    'Mercedes W13': {
+        'team': 'Mercedes AMG', 'year': 2022, 'downforce': 88, 'topSpeed': 340,
+        'acceleration': 89, 'cornering': 87, 'reliability': 91, 'wetPerformance': 93,
+        'straightSpeed': 92, 'aero': 85, 'powerUnit': 'Mercedes', 'championships': 0, 'image': '🏎'
+    },
+    'Mercedes W11': {
+        'team': 'Mercedes AMG', 'year': 2020, 'downforce': 96, 'topSpeed': 348,
+        'acceleration': 95, 'cornering': 97, 'reliability': 98, 'wetPerformance': 96,
+        'straightSpeed': 89, 'aero': 97, 'powerUnit': 'Mercedes', 'championships': 1, 'image': '🏎'
+    },
+    'Ferrari F1-75': {
+        'team': 'Scuderia Ferrari', 'year': 2022, 'downforce': 91, 'topSpeed': 352,
+        'acceleration': 93, 'cornering': 90, 'reliability': 85, 'wetPerformance': 88,
+        'straightSpeed': 95, 'aero': 92, 'powerUnit': 'Ferrari', 'championships': 0, 'image': '🏎'
+    },
+    'Ferrari SF90': {
+        'team': 'Scuderia Ferrari', 'year': 2019, 'downforce': 89, 'topSpeed': 355,
+        'acceleration': 91, 'cornering': 88, 'reliability': 82, 'wetPerformance': 85,
+        'straightSpeed': 97, 'aero': 88, 'powerUnit': 'Ferrari', 'championships': 0, 'image': '🏎'
+    },
+    'McLaren MCL60': {
+        'team': 'McLaren F1', 'year': 2023, 'downforce': 89, 'topSpeed': 342,
+        'acceleration': 90, 'cornering': 91, 'reliability': 92, 'wetPerformance': 89,
+        'straightSpeed': 87, 'aero': 90, 'powerUnit': 'Mercedes', 'championships': 0, 'image': '🏎'
+    },
+    'McLaren MP4-25': {
+        'team': 'McLaren F1', 'year': 2010, 'downforce': 85, 'topSpeed': 320,
+        'acceleration': 84, 'cornering': 87, 'reliability': 88, 'wetPerformance': 86,
+        'straightSpeed': 82, 'aero': 86, 'powerUnit': 'Mercedes', 'championships': 0, 'image': '🏎'
+    },
+    'Red Bull RB6': {
+        'team': 'Red Bull Racing', 'year': 2010, 'downforce': 92, 'topSpeed': 318,
+        'acceleration': 87, 'cornering': 94, 'reliability': 90, 'wetPerformance': 88,
+        'straightSpeed': 80, 'aero': 94, 'powerUnit': 'Renault', 'championships': 1, 'image': '🏎'
+    },
+    'Red Bull RB7': {
+        'team': 'Red Bull Racing', 'year': 2011, 'downforce': 94, 'topSpeed': 322,
+        'acceleration': 89, 'cornering': 96, 'reliability': 91, 'wetPerformance': 90,
+        'straightSpeed': 81, 'aero': 96, 'powerUnit': 'Renault', 'championships': 1, 'image': '🏎'
+    },
+    'Mercedes W05': {
+        'team': 'Mercedes AMG', 'year': 2014, 'downforce': 90, 'topSpeed': 335,
+        'acceleration': 92, 'cornering': 93, 'reliability': 95, 'wetPerformance': 94,
+        'straightSpeed': 88, 'aero': 92, 'powerUnit': 'Mercedes', 'championships': 1, 'image': '🏎'
+    },
+    'Red Bull RB16B': {
+        'team': 'Red Bull Racing', 'year': 2021, 'downforce': 92, 'topSpeed': 343,
+        'acceleration': 91, 'cornering': 95, 'reliability': 93, 'wetPerformance': 91,
+        'straightSpeed': 85, 'aero': 94, 'powerUnit': 'Honda', 'championships': 1, 'image': '🏎'
+    },
+    'Mercedes W12': {
+        'team': 'Mercedes AMG', 'year': 2021, 'downforce': 91, 'topSpeed': 341,
+        'acceleration': 90, 'cornering': 94, 'reliability': 95, 'wetPerformance': 95,
+        'straightSpeed': 87, 'aero': 93, 'powerUnit': 'Mercedes', 'championships': 0, 'image': '🏎'
+    },
+    'Ferrari SF71H': {
+        'team': 'Scuderia Ferrari', 'year': 2018, 'downforce': 90, 'topSpeed': 349,
+        'acceleration': 92, 'cornering': 91, 'reliability': 86, 'wetPerformance': 88,
+        'straightSpeed': 94, 'aero': 91, 'powerUnit': 'Ferrari', 'championships': 0, 'image': '🏎'
+    },
+    'Mercedes W07': {
+        'team': 'Mercedes AMG', 'year': 2016, 'downforce': 92, 'topSpeed': 340,
+        'acceleration': 93, 'cornering': 95, 'reliability': 96, 'wetPerformance': 95,
+        'straightSpeed': 87, 'aero': 94, 'powerUnit': 'Mercedes', 'championships': 1, 'image': '🏎'
+    },
+    'Alpine A522': {
+        'team': 'Alpine F1', 'year': 2022, 'downforce': 86, 'topSpeed': 338,
+        'acceleration': 87, 'cornering': 88, 'reliability': 89, 'wetPerformance': 87,
+        'straightSpeed': 86, 'aero': 87, 'powerUnit': 'Renault', 'championships': 0, 'image': '🏎'
+    },
+    'Aston Martin AMR23': {
+        'team': 'Aston Martin', 'year': 2023, 'downforce': 90, 'topSpeed': 344,
+        'acceleration': 91, 'cornering': 92, 'reliability': 90, 'wetPerformance': 89,
+        'straightSpeed': 88, 'aero': 91, 'powerUnit': 'Mercedes', 'championships': 0, 'image': '🏎'
+    },
+    'Ferrari F2004': {
+        'team': 'Scuderia Ferrari', 'year': 2004, 'downforce': 88, 'topSpeed': 365,
+        'acceleration': 90, 'cornering': 91, 'reliability': 97, 'wetPerformance': 87,
+        'straightSpeed': 98, 'aero': 89, 'powerUnit': 'Ferrari', 'championships': 1, 'image': '🏎'
+    }
 }
 
 def calculate_score(car, conditions):
+    """Calculate performance score based on race conditions"""
     score = 0
     factors = []
+    
+    # Weather impact
     if conditions['weather'] in ['wet', 'rain']:
         score += car['wetPerformance'] * 1.5
         factors.append({'name': 'Wet Weather', 'value': car['wetPerformance'], 'weight': 1.5})
     else:
         score += car['topSpeed'] * 0.8
-        factors.append({'name': 'Dry Performance', 'value': car['topSpeed'], 'weight': 0.8})
+        factors.append({'name': 'Dry Performance', 'value': car['topSpeed'] / 4, 'weight': 0.8})
+    
+    # Track type impact
     if conditions['trackType'] == 'street':
         score += car['cornering'] * 1.3
         score += car['acceleration'] * 1.2
+        factors.append({'name': 'Cornering', 'value': car['cornering'], 'weight': 1.3})
     elif conditions['trackType'] == 'high-speed':
         score += car['straightSpeed'] * 1.5
         score += car['topSpeed'] * 0.01
+        factors.append({'name': 'Top Speed', 'value': car['topSpeed'] / 4, 'weight': 1.5})
     else:
         score += car['downforce'] * 1.2
+        factors.append({'name': 'Downforce', 'value': car['downforce'], 'weight': 1.2})
+    
+    # Waviness impact
     if conditions['waviness'] == 'bumpy':
         score += car['reliability'] * 1.1
+        factors.append({'name': 'Reliability', 'value': car['reliability'], 'weight': 1.1})
+    
+    # Curves impact
     if conditions['curves'] == 'high':
         score += car['cornering'] * 1.4
         score += car['aero'] * 1.2
     elif conditions['curves'] == 'low':
         score += car['straightSpeed'] * 1.3
+    
+    # Race duration impact
     duration = int(conditions['raceDuration'])
     if duration >= 12:
         score += car['reliability'] * 1.5
+        factors.append({'name': 'Endurance', 'value': car['reliability'], 'weight': 1.5})
     else:
         score += car['acceleration'] * 1.2
+    
     return {'score': score, 'factors': factors}
+
+@app.route('/')
+def index():
+    """Render the main page"""
+    return render_template('index.html')
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
+    """Analyze race conditions and return recommendations"""
     conditions = request.json
+    
+    # Calculate scores for all cars
     results = []
     for name, car in F1_CARS.items():
         calc_result = calculate_score(car, conditions)
@@ -1049,12 +1156,17 @@ def analyze():
             'score': calc_result['score'],
             'factors': calc_result['factors']
         })
+    
+    # Sort by score
     results.sort(key=lambda x: x['score'], reverse=True)
+    
+    # Return top 5 and all results
     return jsonify({
         'recommended': results[0],
         'alternatives': results[1:5],
         'allCars': results
     })
+
 
 @app.route('/index')
 def index():
